@@ -1,6 +1,6 @@
-import express from 'express';
-import * as dotenv from 'dotenv';
 import cors from 'cors';
+import * as dotenv from 'dotenv';
+import express from 'express';
 
 import dalleRoutes from './routes/dalle.routes.js';
 
@@ -17,5 +17,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(5000, () => {
-    console.log("Server listening on port 5000");
+    console.log("Server is running on port 5000");
 });
