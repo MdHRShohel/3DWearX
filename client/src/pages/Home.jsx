@@ -1,5 +1,7 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useSnapshot } from 'valtio';
+
+import state from '../store';
 import { CustomButton } from '../components';
 import {
   headContainerAnimation,
@@ -7,7 +9,6 @@ import {
   headTextAnimation,
   slideAnimation
 } from '../config/motion';
-import state from '../store';
 
 const Home = () => {
   const snap = useSnapshot(state);

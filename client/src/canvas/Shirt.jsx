@@ -1,8 +1,8 @@
-import { Decal, useGLTF, useTexture } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import React from 'react'
 import { easing } from 'maath';
-import React from 'react';
 import { useSnapshot } from 'valtio';
+import { useFrame } from '@react-three/fiber';
+import { Decal, useGLTF, useTexture } from '@react-three/drei';
 
 import state from '../store';
 
