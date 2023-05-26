@@ -22,6 +22,8 @@ const Customizer = () => {
     stylishShirt: false,
   })
 
+     const [isopen, setIsopen] = useState(false);
+
   // show tab content depending on the activeTab
   const generateTabContent = () => {
     switch (activeEditorTab) {
@@ -51,13 +53,16 @@ const Customizer = () => {
     try {
       setGeneratingImg(true);
 
-      const response = await fetch("http://localhost:5000/generateImage", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt: prompt }),
-      });
+      const response = await fetch(
+        "https://3dwearx-server.vercel.app/generateImage",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt: prompt }),
+        }
+      );
 
       const data = await response.json();
       handleDecals(type, `data:image/png;base64,${data.image}`);
@@ -118,15 +123,22 @@ const Customizer = () => {
           <motion.div
             key="custom"
             className="absolute top-0 left-0 z-10"
-            {...slideAnimation('left')}
+            {...slideAnimation("left")}
           >
             <div className="flex items-center min-h-screen">
               <div className="editortabs-container tabs">
                 {EditorTabs.map((tab) => (
-                  <Tab 
+                  <Tab
                     key={tab.name}
                     tab={tab}
-                    handleClick={() => setActiveEditorTab(tab.name)}
+                    handleClick={() => {
+                      setIsopen(!isopen);
+                      if (!isopen) {
+                        setActiveEditorTab(tab.name);
+                      } else {
+                        setActiveEditorTab("");
+                      }
+                    }}
                   />
                 ))}
 
@@ -139,16 +151,16 @@ const Customizer = () => {
             className="absolute z-10 top-5 right-5"
             {...fadeAnimation}
           >
-            <CustomButton 
+            <CustomButton
               type="filled"
               title="Go Back"
-              handleClick={() => state.intro = true}
+              handleClick={() => (state.intro = true)}
               customStyles="w-fit px-4 py-2.5 font-bold text-sm"
             />
           </motion.div>
 
           <motion.div
-            className='filtertabs-container'
+            className="filtertabs-container"
             {...slideAnimation("up")}
           >
             {FilterTabs.map((tab) => (
@@ -164,7 +176,7 @@ const Customizer = () => {
         </>
       )}
     </AnimatePresence>
-  )
+  );
 }
 
 export default Customizer
